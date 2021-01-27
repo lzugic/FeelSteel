@@ -3,7 +3,7 @@
 <div class=" container detail-container">
     <div class="row">
     <div class="col-sm-6">
-        <img class="detail-img" src="{{$product['galery']}}">
+        <img class="detail-img" src="{{$product->galery}}">
     </div>
     <div class="col-sm-6">
         <a href="http://localhost/e-commerce-project/public/">Nazad</a>
@@ -18,7 +18,7 @@
             <button class="btn btn-primary">Dodaj u Korpu</button>
         </form>
         <br></br>
-        <button class="btn btn-success">Kupi Odmah</button>
+        <a href="ordernow" class="btn btn-success">Kupi Odmah</a>
         <br></br>
     </div>
     </div>

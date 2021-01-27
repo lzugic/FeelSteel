@@ -134,5 +134,18 @@ nav a:hover {
     text-align: center;
 }
 
+/*Cart Page*/
+.cart-container{
+    padding-top:60px;
+}
+.cart-wrapper{
+    margin: 30px;
+}
+.cart-list-devider{
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
 </style>
 </html>

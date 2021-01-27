@@ -48,12 +48,14 @@ if(Session::has('user')){
       </form>
       <ul class="nav navbar-nav navbar-right">
         @if(Session::has('user'))
-        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Korpa({{$total}})</a></li>
+        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="cartlist">Korpa({{$total}})</a></li>
+        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="myorder">Moje Narudzbine</a></li>
         <li class="nav-item dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Session::get('user')['username']}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Profil</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Another action</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Dodaj Proizvod</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="myorder">Narudzbine</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Podesavanja</a></li>
             <li class="nav-item" role="separator" class="divider"></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="logout">Izloguj se</a></li>
