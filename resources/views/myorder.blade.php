@@ -7,7 +7,7 @@
     @foreach($orders as $order)
     <div class="row cart-list-devider">
     <div class="col-sm-3">
-    <a href="detail/{{$order->id}}">
+    <a href="details/{{$order->id}}">
       <img class="trending-img" src="{{$order->galery}}">
       </a>
       </div>

@@ -4,11 +4,10 @@
 <div class="col-sm-10">
 <div class="cart-wrapper">
   <h2>Rezultati Korpe:</h2>
-  <a href="ordernow" class="btn btn-success">Naruci Odmah</a> <br><br>
     @foreach($products as $product)
     <div class="row cart-list-devider">
     <div class="col-sm-3">
-    <a href="detail/{{$product->id}}">
+    <a href="details/{{$product->id}}">
       <img class="trending-img" src="{{$product->galery}}">
       </a>
       </div>

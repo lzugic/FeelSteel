@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
@@ -12,13 +13,28 @@ use Session;
 class ProductController extends Controller
 {
     function index(){
-        $data = Product::all();
-        return view('product', ['products'=> $data]);
+        
+        if(request()->category){
+            $products = Product::with('categories')->whereHas('categories', function($query){
+                $query->where('slug', request()->category);
+            
+            })->get();
+            $categories = Category::all();
+        }else{
+        
+        $data = Product::inRandomOrder()->take(14)->get();
+        $categories = Category::all();
+        }
+
+        return view('product')->with(['categories'=> $categories, 'products'=> $data ]);
     }
 
-    function detail($id){
-        $data = Product::find($id);
-        return view('detail', ['product'=> $data]);
+
+
+    function details($id){
+        $data = Product::where('id', $id)->FirstOrFail();
+
+        return view('details')->with(['product'=> $data]);
     }
 
     function search(Request $req){
@@ -33,7 +49,7 @@ class ProductController extends Controller
             $cart->product_id=$req->product_id;
             $cart->save();
             
-            return redirect('/');
+            return redirect('cartlist');
 
         }else{
             return redirect('/login');
@@ -87,7 +103,7 @@ class ProductController extends Controller
 
         }
         $req->input();
-        return redirect('/');
+        return redirect('thankyou');
 
     }
     function myOrder(){
@@ -99,4 +115,69 @@ class ProductController extends Controller
 
         return view('myorder',['orders'=> $orders]);
     }
+
+    function orderList(){
+        $orders = DB::table('orders')
+        ->join('products', 'orders.product_id', 'products.id')
+        ->get();
+
+        return view('orderlist', ['orders'=> $orders]);
+
+    }
+
+    function thankYou(){
+        $userId = Session::get('user')['id'];
+        return view('thankyou');
+
+    }
+
+    function Shop(){
+
+         if(request()->category){
+             $products = Product::with('categories')->whereHas('categories', function($query){
+                 $query->where('slug', request()->category);
+             })->get();
+
+         $categories = Category::all();
+         $categoryName = $categories->where('slug', request()->category)->first()->name;
+
+        // if(request()->category){
+
+        //     $categories = Category::all();
+        //     $categoryName = $categories->where('slug', request()->category)->first()->name;
+
+        //     $products = Product::where('category')->whereHas('categories', function ($q) use ($categories) {
+        //         $q->where('slug', $categories);
+        //   })->get();
+          
+
+
+        }else{
+        $products = Product::all();
+        $categories = Category::all();
+        $categoryName = "Svi Proizvodi";
+
+        }
+
+        if(request()->sort == 'low_high'){
+            $products = $products->sortBy('price');
+
+        }elseif(request()->sort == 'high_low'){
+            $products = $products->sortByDesc('price');
+
+        }
+
+        return view('shop')->with(['categories'=> $categories, 'products'=> $products, 'categoryName'=>$categoryName ]);
+    }
+
+    function dashBoard(){
+        
+        return view('admin.dashboard');
+    }
+    
+    function Home(){
+
+        return view('home');
+    }
+
 }

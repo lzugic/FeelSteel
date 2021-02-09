@@ -14,7 +14,19 @@ class UserController extends Controller
             return "Korisnicko Ime ili Sifra se ne poklapaju";
         }else{
             $req->session()->put('user', $user);
-            return redirect('/');
+            return $user;
         }
     }
+    function Register(Request $req){
+        $user = new User;
+        $user->username = $req->username;
+        $user->email = $req->email;
+        $user->password = Hash::make($req->password);
+        $user->save();
+        
+        return redirect('login');
+
+        //return $req->input();
+    }
+
 }
